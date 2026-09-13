@@ -40,6 +40,7 @@ default = [
     "keyboard+all",
     "launcher",
     "label",
+    "mawm",
     "menu",
     "music+all",
     "network_manager",
@@ -104,6 +105,8 @@ keyboard = ["dep:colpetto", "dep:evdev-rs", "dep:rustix", "futures-lite"]
 label = []
 
 launcher = []
+
+mawm = ["zbus"]
 
 menu = []
 

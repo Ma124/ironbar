@@ -158,6 +158,8 @@ pub enum ModuleConfig {
     Volume(Box<VolumeModule>),
     #[cfg(feature = "workspaces")]
     Workspaces(Box<WorkspacesModule>),
+    #[cfg(feature = "mawm")]
+    MawmWorkspaces(Box<crate::modules::workspaces::mawm::MawmWorkspacesModule>),
 }
 
 impl ModuleConfig {
@@ -218,6 +220,8 @@ impl ModuleConfig {
             Self::Volume(module) => create!(module),
             #[cfg(feature = "workspaces")]
             Self::Workspaces(module) => create!(module),
+            #[cfg(feature = "mawm")]
+            Self::MawmWorkspaces(module) => create!(module),
         }
     }
 
@@ -265,6 +269,8 @@ impl ModuleConfig {
             ModuleConfig::Volume(_) => "Volume",
             #[cfg(feature = "workspaces")]
             ModuleConfig::Workspaces(_) => "Workspaces",
+            #[cfg(feature = "mawm")]
+            Self::MawmWorkspaces(_) => "MawmWorkspaces",
             // in case no modules are compiled
             #[allow(unreachable_patterns)]
             _ => "",

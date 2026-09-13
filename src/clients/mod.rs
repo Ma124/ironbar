@@ -51,6 +51,8 @@ pub struct Clients {
     outputs: Option<Arc<outputs::Client>>,
     #[cfg(feature = "workspaces")]
     workspaces: Option<Arc<dyn compositor::WorkspaceClient>>,
+    #[cfg(feature = "mawm")]
+    mawm: Option<Arc<compositor::mawm::Client>>,
     #[cfg(feature = "sway")]
     sway: Option<Arc<sway::Client>>,
     #[cfg(feature = "hyprland")]
@@ -155,6 +157,20 @@ impl Clients {
         } else {
             let client = compositor::Compositor::create_bindmode_client(self)?;
             self.bindmode.replace(client.clone());
+            client
+        };
+
+        Ok(client)
+    }
+
+    #[cfg(feature = "mawm")]
+    pub fn mawm(&mut self) -> ClientResult<compositor::mawm::Client> {
+        let client = if let Some(client) = &self.mawm {
+            client.clone()
+        } else {
+            let client = await_sync(async { compositor::mawm::Client::new().await })?;
+            let client = Arc::new(client);
+            self.mawm.replace(client.clone());
             client
         };
 

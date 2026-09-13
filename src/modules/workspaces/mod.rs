@@ -2,6 +2,9 @@ mod button;
 mod button_map;
 mod open_state;
 
+#[cfg(feature = "mawm")]
+pub mod mawm;
+
 use self::button::Button;
 use crate::channels::{AsyncSenderExt, BroadcastReceiverExt};
 use crate::clients::compositor::{Workspace, WorkspaceClient, WorkspaceUpdate};

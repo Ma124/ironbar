@@ -8,6 +8,8 @@ use tracing::debug;
 
 #[cfg(feature = "hyprland")]
 pub mod hyprland;
+#[cfg(feature = "mawm")]
+pub mod mawm;
 #[cfg(feature = "niri")]
 pub mod niri;
 #[cfg(feature = "sway")]
